@@ -83,7 +83,7 @@ const images = [
         type: 'video',
         src: 'https://www.youtube-nocookie.com/embed/FvJz4LkhChY?start=10',
         alt: 'Robot Demo',
-        caption: 'Full demonstration of the robot navigating through the simulated environment in Webots'
+        caption: 'Full demonstration of the robot navigating in Webots'
     }
 ];
 
