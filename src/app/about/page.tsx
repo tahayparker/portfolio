@@ -108,7 +108,7 @@ export default function About() {
                         variants={item}
                     >
                         <span className="inline-block"># whoami</span>{' '}
-                        <span className="inline-block">--verbose</span>
+                        <span className="inline-block">/all</span>
                     </motion.h1>
 
                     <div className="text-lg text-foreground/80 space-y-6">
