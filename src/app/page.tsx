@@ -19,8 +19,8 @@ const container = {
 
 const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { 
-        opacity: 1, 
+    show: {
+        opacity: 1,
         y: 0,
         transition: {
             duration: 0.6,
@@ -42,7 +42,7 @@ export default function Home() {
 
     return (
         <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
-            <motion.div 
+            <motion.div
                 initial="hidden"
                 animate={showContent ? "show" : "hidden"}
                 variants={container}
@@ -52,8 +52,8 @@ export default function Home() {
                     <Header />
                 </motion.div>
                 <div className="max-w-4xl mx-auto px-4 pt-8">
-                    <motion.div 
-                        ref={containerRef} 
+                    <motion.div
+                        ref={containerRef}
                         className="border-2 border-foreground p-8 shadow-custom"
                         variants={item}
                     >
@@ -84,28 +84,10 @@ export default function Home() {
                         </motion.div>
                     </motion.div>
 
-                    <motion.div 
-                        className="border-2 border-[var(--golden)] p-8 shadow-[5px_5px_0px_-2px_var(--background),_5px_5px_0px_0px_var(--golden)] mt-8"
-                        variants={item}
-                    >
-                        <motion.div className="space-y-4" variants={item}>
-                            <h2 className="text-lg font-bold text-[var(--golden)]">The Webring</h2>
-                            <p className="text-sm opacity-80 text-[var(--golden)]">
-                                This site is part of a webring connecting like-minded developers and creators. 
-                                Discover more amazing portfolios and digital gardens.
-                            </p>
-                            <Link 
-                                href="/webring" 
-                                className="inline-block mt-2 text-[var(--golden)] hover:opacity-80 transition-opacity"
-                            >
-                                → Explore the Webring
-                            </Link>
-                        </motion.div>
-                    </motion.div>
                 </div>
             </motion.div>
-            <PageLoader 
-                command="sudo init portfolio" 
+            <PageLoader
+                command="sudo init portfolio"
                 responses={[
                     "Initializing portfolio...",
                     "Loading components...",
