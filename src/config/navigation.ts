@@ -23,9 +23,5 @@ export const navigationLinks: NavLink[] = [
     {
         label: 'Contact',
         href: '/contact'
-    },
-    {
-        label: 'Webring',
-        href: '/webring'
     }
-]; 
+];
