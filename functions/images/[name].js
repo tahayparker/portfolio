@@ -15,7 +15,7 @@ export async function onRequest(context) {
   }
 
   // Retrieve the image object from the bound R2 bucket.
-  const object = await env['tahayparker-portfolio'].get(imagePath);
+  const object = await tahayparker_portfolio.get(imagePath);
 
   // Handle the case where the requested object does not exist.
   if (object === null) {
