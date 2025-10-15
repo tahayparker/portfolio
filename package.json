@@ -10,8 +10,7 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio",
-    "preview": "wrangler pages dev .next --remote-bindings"
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",
