@@ -55,8 +55,8 @@ export default function Experience() {
                 const expData = await expRes.json();
                 const volData = await volRes.json();
 
-                setExperience(expData);
-                setVolunteer(volData);
+                setExperience(Array.isArray(expData) ? expData : []);
+                setVolunteer(Array.isArray(volData) ? volData : []);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
                 console.error('Error fetching data:', err);
