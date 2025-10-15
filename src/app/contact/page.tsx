@@ -50,7 +50,7 @@ export default function Contact() {
                     <Header />
                 </motion.div>
                 <GoToTop />
-                <div className="max-w-4xl mx-auto px-4 pt-8">
+                <div className="max-w-7xl mx-auto px-4 pt-8">
                     <motion.div
                         className="border-2 border-foreground p-8 shadow-custom"
                         variants={item}
@@ -62,7 +62,7 @@ export default function Contact() {
                             <span className="inline-block"># cat contact.vcf</span>
                         </motion.h1>
                         <motion.p
-                            className="text-md opacity-80 mb-8"
+                            className="text-md opacity-80 mb-8 text-justify"
                             variants={item}
                         >
                             I&apos;m always open to new opportunities and collaborations. Feel free to reach out to me through any of the following methods.
@@ -152,4 +152,4 @@ export default function Contact() {
             />
         </main>
     )
-} 
+}
