@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '@/context/ThemeContext'
 import { navigationLinks } from '@/config/navigation'
@@ -31,6 +31,20 @@ export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false)
     const { theme, setTheme } = useTheme()
+
+    // Disable scrolling when mobile menu is open
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        // Cleanup on unmount
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMenuOpen]);
 
     return (
         <motion.div
