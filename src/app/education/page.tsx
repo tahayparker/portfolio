@@ -1,12 +1,12 @@
 'use client';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import PageLoader from '../../components/PageLoader';
 import { ExternalLink } from 'react-feather';
 import GoToTop from '../../components/GoToTop';
-import { educationHistory } from './education';
-import { certifications } from './certificates';
+import type { Education } from './education';
+import type { Certification } from './certificates';
 
 const container = {
     hidden: { opacity: 0 },
@@ -33,12 +33,80 @@ const item = {
 
 export default function Education() {
     const [showContent, setShowContent] = useState(false);
+    const [educationHistory, setEducationHistory] = useState<Education[]>([]);
+    const [certifications, setCertifications] = useState<Certification[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    // Fetch education and certifications data
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [eduRes, certRes] = await Promise.all([
+                    fetch('/api/education'),
+                    fetch('/api/certifications'),
+                ]);
+
+                if (!eduRes.ok || !certRes.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
+                const eduData = await eduRes.json();
+                const certData = await certRes.json();
+
+                setEducationHistory(eduData);
+                setCertifications(certData);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+                console.error('Error fetching data:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleComplete = () => {
         setTimeout(() => {
             setShowContent(true);
         }, 200);
     };
+
+    // Show loader if still fetching data
+    if (loading) {
+        return (
+            <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
+                <Header />
+                <GoToTop />
+                <PageLoader
+                    command="cat education.edu"
+                    responses={[
+                        "Loading academic history...",
+                        "Verifying credentials...",
+                        "Ready."
+                    ]}
+                    onComplete={handleComplete}
+                />
+            </main>
+        );
+    }
+
+    // Show error if data fetch failed
+    if (error) {
+        return (
+            <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
+                <Header />
+                <GoToTop />
+                <div className="max-w-7xl mx-auto px-4 pt-8">
+                    <div className="border-2 border-red-500 p-6 shadow-custom bg-background">
+                        <h1 className="text-2xl font-bold mb-4 text-red-500">Error Loading Data</h1>
+                        <p className="text-red-400">{error}</p>
+                    </div>
+                </div>
+            </main>
+        );
+    }
 
     return (
         <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
@@ -56,7 +124,7 @@ export default function Education() {
             />
 
             <motion.div
-                className="max-w-4xl mx-auto px-4 pt-8"
+                className="max-w-7xl mx-auto px-4 pt-8"
                 initial="hidden"
                 animate={showContent ? "show" : "hidden"}
                 variants={container}
@@ -88,9 +156,9 @@ export default function Education() {
                                 <p className="text-[0.9375rem] opacity-80">
                                     {edu.duration} | {edu.location}
                                 </p>
-                                <ul className="list-disc list-inside space-y-2 opacity-80 mt-4">
+                                <ul className="list-disc list-outside ml-5 space-y-2 opacity-80 mt-4">
                                     {edu.description.map((desc, i) => (
-                                        <li key={i} className="text-[0.9375rem]">
+                                        <li key={i} className="text-[0.9375rem] text-justify">
                                             {desc}
                                         </li>
                                     ))}
@@ -156,7 +224,7 @@ export default function Education() {
                                         )}
                                     </div>
                                 </div>
-                                <p className="text-[0.9375rem]">
+                                <p className="text-[0.9375rem] text-justify">
                                     {cert.description}
                                 </p>
                             </motion.div>
