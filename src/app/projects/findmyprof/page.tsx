@@ -41,7 +41,7 @@ const relatedProjects: RelatedProject[] = [
     {
         slug: 'vacansee',
         title: 'vacan.see',
-        image: '/projects/vacansee.png'
+        image: '/images/vacansee.png'
     }
 ];
 
@@ -133,7 +133,7 @@ export default function FindMyProfProject() {
                         <div className="space-y-8">
                             <motion.div variants={item} className="relative w-full [aspect-ratio:16/10] border-2 border-foreground shadow-custom">
                                 <Image
-                                    src="/projects/findmyprof.png"
+                                    src="/images/findmyprof.png"
                                     alt="FindMyProf"
                                     fill
                                     className="object-cover"
@@ -186,7 +186,7 @@ export default function FindMyProfProject() {
                                 </p>
 
                                 <h2 id="overview" className="text-2xl font-bold">Overview</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     Because consultation hours are severely limited. Built with Next.js, TypeScript, Tailwind CSS, PostgreSQL & Prisma, FindMyProf is a web application designed to help students find out if their professors are in class or not, providing real-time availability information and interactive visualizations of their schedules.
                                 </p>
 
@@ -201,10 +201,10 @@ export default function FindMyProfProject() {
                                 </ul>
 
                                 <h2 id="technical-details" className="text-2xl font-bold mt-8">Technical Details</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     The application is built using Next.js for both frontend and backend, with TypeScript providing type safety and Prisma ORM managing database operations with PostgreSQL hosted on Neon. The frontend utilizes TailwindCSS for styling, with custom animations and a responsive design that works across different devices, while the backend implements API routes for handling professor availability checks, schedule data retrieval, and database operations through the Prisma client.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     The project implements an automated update system using GitHub Actions that runs daily to keep the availability data current. This automation pipeline includes a Python-based scraper that collects timetable data, updates the PostgreSQL database through Prisma, and generates a new schedule JSON file that&apos;s used for the interactive visualizations. The application also implements caching strategies for API responses to optimize performance and reduce database load, while maintaining data consistency through scheduled updates.
                                 </p>
                             </motion.div>
@@ -257,4 +257,4 @@ export default function FindMyProfProject() {
             </motion.div>
         </main>
     );
-} 
+}
