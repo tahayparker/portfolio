@@ -5,7 +5,7 @@
  * Run with: npx prisma db seed
  */
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, ProjectType } from '@prisma/client';
 import { certificationsData } from './certifications-data';
 import { projectsData } from './projects-seed';
 
@@ -284,7 +284,12 @@ async function main() {
   // Seed Projects
   console.log('📝 Seeding projects...');
   for (const project of projectsData) {
-    await prisma.project.create({ data: project });
+    await prisma.project.create({
+      data: {
+        ...project,
+        projectType: project.projectType as ProjectType
+      }
+    });
   }
   console.log(`✅ Seeded ${projectsData.length} projects`);
 
