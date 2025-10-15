@@ -54,8 +54,8 @@ export default function Education() {
                 const eduData = await eduRes.json();
                 const certData = await certRes.json();
 
-                setEducationHistory(eduData);
-                setCertifications(certData);
+                setEducationHistory(eduData as Education[]);
+                setCertifications(certData as Certification[]);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
                 console.error('Error fetching data:', err);
