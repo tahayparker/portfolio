@@ -20,11 +20,19 @@ declare global {
  */
 function createPrismaClient() {
   // Use connection pooling for edge runtime
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-  const adapter = new PrismaNeon(pool);
+  const connectionString = process.env.DATABASE_URL;
+
+  if (!connectionString) {
+    throw new Error('DATABASE_URL environment variable is not set');
+  }
+
+  const pool = new Pool({ connectionString });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const adapter = new PrismaNeon(pool as any); // Type assertion needed for Neon adapter compatibility
 
   return new PrismaClient({
-    adapter,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    adapter: adapter as any,
     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   });
 }
