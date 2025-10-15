@@ -25,10 +25,24 @@ export default function PageLoader({ command, responses, onComplete }: PageLoade
         setMaxWidth(maxLength * 12); // 12px per character approximate
     }, [command, responses]);
 
+    // Disable scrolling while loader is active
+    useEffect(() => {
+        if (!isComplete) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        // Cleanup on unmount
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isComplete]);
+
     useEffect(() => {
         let currentIndex = 0;
         const fullCommand = '# ' + command;
-        
+
         const typingInterval = setInterval(() => {
             if (currentIndex < fullCommand.length) {
                 setTypedText(fullCommand.slice(0, currentIndex + 1));
@@ -37,7 +51,7 @@ export default function PageLoader({ command, responses, onComplete }: PageLoade
                 clearInterval(typingInterval);
                 setFinalText(fullCommand);
                 setIsTypingComplete(true);
-                
+
                 const showResponses = async () => {
                     for (let i = 0; i < responses.length; i++) {
                         await new Promise(resolve => setTimeout(resolve, 400));
@@ -53,7 +67,7 @@ export default function PageLoader({ command, responses, onComplete }: PageLoade
                         }
                     }, 800);
                 };
-                
+
                 setTimeout(showResponses, 300);
             }
         }, 100);
@@ -78,18 +92,18 @@ export default function PageLoader({ command, responses, onComplete }: PageLoade
                     className="fixed inset-0 flex items-center justify-center"
                     style={{ zIndex: isComplete ? -1 : 50 }}
                     initial={{ opacity: 1, y: 0 }}
-                    animate={{ 
+                    animate={{
                         opacity: isComplete ? 0 : 1,
                         y: isComplete ? -20 : 0
                     }}
-                    transition={{ 
+                    transition={{
                         duration: 0.5,
                         ease: [0.25, 0.1, 0.25, 1]
                     }}
                 >
-                    <div 
+                    <div
                         className="font-mono text-xl text-foreground flex flex-col"
-                        style={{ 
+                        style={{
                             width: Math.max(maxWidth, 300), // minimum width of 300px
                             minWidth: Math.max(maxWidth, 300)
                         }}
