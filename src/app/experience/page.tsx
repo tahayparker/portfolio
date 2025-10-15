@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import PageLoader from '../../components/PageLoader';
 import { ExternalLink } from 'react-feather';
@@ -8,8 +8,6 @@ import Image from 'next/image';
 import { useTheme } from '@/context/ThemeContext';
 import GoToTop from '../../components/GoToTop';
 import type { Experience } from './experiences';
-import { experience } from './experiences';
-import { volunteer } from './volunteering';
 
 const container = {
     hidden: { opacity: 0 },
@@ -36,6 +34,39 @@ const item = {
 
 export default function Experience() {
     const [showContent, setShowContent] = useState(false);
+    const [experience, setExperience] = useState<Experience[]>([]);
+    const [volunteer, setVolunteer] = useState<Experience[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    // Fetch experiences and volunteering data
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [expRes, volRes] = await Promise.all([
+                    fetch('/api/experiences'),
+                    fetch('/api/volunteering'),
+                ]);
+
+                if (!expRes.ok || !volRes.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
+                const expData = await expRes.json();
+                const volData = await volRes.json();
+
+                setExperience(expData);
+                setVolunteer(volData);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+                console.error('Error fetching data:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleComplete = () => {
         setTimeout(() => {
@@ -45,15 +76,15 @@ export default function Experience() {
 
     const ExperienceCard = ({ exp }: { exp: Experience }) => {
         const { theme } = useTheme();
-        
+
         return (
             <motion.div
                 variants={item}
                 className="space-y-2"
             >
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
-                    <div className="flex items-center gap-4">
-                        <div className="flex-shrink-0 w-16 h-16 border-2 border-foreground flex items-center justify-center bg-background overflow-hidden relative shadow-[-5px_5px_0px_-2px_var(--background),_-5px_5px_0px_0px_var(--foreground)]">
+                    <div className="flex items-start gap-4 w-full md:w-auto">
+                        <div className="flex-shrink-0 w-20 h-20 flex items-center justify-center bg-background overflow-hidden relative">
                             {exp.logo ? (
                                 <Image
                                     src={theme === 'light' ? exp.logo.light : exp.logo.dark}
@@ -67,9 +98,25 @@ export default function Experience() {
                                 <span className="text-xs opacity-50">Logo</span>
                             )}
                         </div>
-                        <div>
-                            <h2 className="text-2xl font-bold font-uni">{exp.company}</h2>
-                            <p className="text-lg text-foreground/80">{exp.position}</p>
+                        <div className="flex flex-col gap-0.5 flex-1">
+                            <h2 className="text-2xl font-bold font-uni leading-tight">{exp.company}</h2>
+                            <p className="text-lg text-foreground/80 leading-tight">{exp.position}</p>
+                            <div className="text-[0.9375rem] opacity-80 leading-tight">
+                                <span className="md:inline">{exp.duration}</span>
+                                <span className="hidden md:inline text-foreground/50"> | </span>
+                                <span className="block md:inline">{exp.location}</span>
+                            </div>
+                            {exp.link && (
+                                <a
+                                    href={exp.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[0.9375rem] underline opacity-80 hover:opacity-100 inline-flex items-center gap-1 mt-0.5 md:hidden"
+                                >
+                                    Visit
+                                    <ExternalLink size={14} />
+                                </a>
+                            )}
                         </div>
                     </div>
                     {exp.link && (
@@ -77,27 +124,22 @@ export default function Experience() {
                             href={exp.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[0.9375rem] underline opacity-80 hover:opacity-100 inline-flex items-center gap-1"
+                            className="text-[0.9375rem] underline opacity-80 hover:opacity-100 hidden md:inline-flex items-center gap-1"
                         >
                             Visit
                             <ExternalLink size={14} />
                         </a>
                     )}
                 </div>
-                <div className="text-[0.9375rem] opacity-80 flex items-center gap-2">
-                    <span>{exp.duration}</span>
-                    <span className="text-foreground/50">|</span>
-                    <span>{exp.location}</span>
-                </div>
-                <ul className="list-disc list-inside space-y-2 opacity-80 mt-4">
+                <ul className="list-disc list-outside ml-5 space-y-2 opacity-80 mt-8">
                     {exp.description.map((desc, i) => (
-                        <li key={i} className="text-[0.9375rem]">
+                        <li key={i} className="text-[0.9375rem] text-justify">
                             {desc}
                         </li>
                     ))}
                 </ul>
                 {exp.technologies && (
-                    <div className="flex flex-wrap gap-2 mt-4">
+                    <div className="flex flex-wrap gap-2 mt-6">
                         {exp.technologies.map((tech, i) => (
                             <span
                                 key={i}
@@ -111,6 +153,41 @@ export default function Experience() {
             </motion.div>
         );
     };
+
+    // Show loader if still fetching data
+    if (loading) {
+        return (
+            <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
+                <Header />
+                <GoToTop />
+                <PageLoader
+                    command="cat experience.md"
+                    responses={[
+                        "Loading work history...",
+                        "Looking at volunteer work...",
+                        "Ready."
+                    ]}
+                    onComplete={handleComplete}
+                />
+            </main>
+        );
+    }
+
+    // Show error if data fetch failed
+    if (error) {
+        return (
+            <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
+                <Header />
+                <GoToTop />
+                <div className="max-w-7xl mx-auto px-4 pt-8">
+                    <div className="border-2 border-red-500 p-6 shadow-custom bg-background">
+                        <h1 className="text-2xl font-bold mb-4 text-red-500">Error Loading Data</h1>
+                        <p className="text-red-400">{error}</p>
+                    </div>
+                </div>
+            </main>
+        );
+    }
 
     return (
         <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
@@ -128,7 +205,7 @@ export default function Experience() {
             />
 
             <motion.div
-                className="max-w-4xl mx-auto px-4 pt-8"
+                className="max-w-7xl mx-auto px-4 pt-8"
                 initial="hidden"
                 animate={showContent ? "show" : "hidden"}
                 variants={container}
@@ -197,4 +274,4 @@ export default function Experience() {
             </motion.div>
         </main>
     );
-} 
+}
