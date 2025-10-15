@@ -26,8 +26,8 @@ export const volunteer: Volunteering[] = [
         "technologies": ["Student Support", "Technical Support", "Communication"],
         "link": "https://uowdubai.ac.ae",
         "logo": {
-            "light": "/logos/uowdl.png",
-            "dark": "/logos/uowdd.png"
+            "light": "/images/logos/uowdl.png",
+            "dark": "/images/logos/uowdd.png"
         }
     },
     {
@@ -43,8 +43,8 @@ export const volunteer: Volunteering[] = [
         "technologies": ["Event Management", "Guest Relations", "Logistics"],
         "link": "https://uowdubai.ac.ae",
         "logo": {
-            "light": "/logos/uowdl.png",
-            "dark": "/logos/uowdd.png"
+            "light": "/images/logos/uowdl.png",
+            "dark": "/images/logos/uowdd.png"
         }
     },
     {
@@ -60,8 +60,8 @@ export const volunteer: Volunteering[] = [
         "technologies": ["Event Operations", "Crowd Management", "Safety Protocol"],
         "link": "https://adnocabudhabimarathon.com/",
         "logo": {
-            "light": "/logos/adnoc.png",
-            "dark": "/logos/adnoc.png"
+            "light": "/images/logos/adnoc.png",
+            "dark": "/images/logos/adnoc.png"
         }
     },
     {
@@ -77,8 +77,8 @@ export const volunteer: Volunteering[] = [
         "technologies": ["Event Management", "Registration Systems", "Customer Service"],
         "link": "https://www.iied.org",
         "logo": {
-            "light": "/logos/iiedl.png",
-            "dark": "/logos/iiedd.png"
+            "light": "/images/logos/iiedl.png",
+            "dark": "/images/logos/iiedd.png"
         }
     }
 ]
