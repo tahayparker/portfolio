@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import PageLoader from '../../components/PageLoader';
 import { GitHub, ExternalLink } from 'react-feather';
@@ -8,71 +8,24 @@ import Link from 'next/link';
 import GoToTop from '../../components/GoToTop';
 
 interface Project {
-    slug: string;
+    id: string;
     title: string;
+    slug: string;
     description: string;
-    github?: string;
-    link?: string;
+    github_url?: string;
+    live_url?: string;
+    project_type: 'personal' | 'university';
     technologies: string[];
+    featured: boolean;
+    display_order: number;
+    created_at: string;
+    updated_at: string;
 }
 
-const personalProjects: Project[] = [
-    {
-        slug: 'vacansee',
-        title: 'vacan.see',
-        description: 'The only website you need to find empty rooms in your university',
-        github: 'https://github.com/tahayparker/vacan.see',
-        link: 'https://vacansee.vercel.app',
-        technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Python', 'PostgreSQL']
-    },
-    {
-        slug: 'findmyprof',
-        title: 'FindMyProf',
-        description: 'Because consultation hours are severely limited',
-        github: 'https://github.com/tahayparker/findmyprof',
-        link: 'https://findmyprof-uowd.vercel.app',
-        technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Python', 'PostgreSQL']
-    },
-    {
-        slug: 'yapmap',
-        title: 'YapMap',
-        description: 'Find out what\'s being yapped the most in your chats',
-        github: 'https://github.com/tahayparker/yapmap',
-        link: 'https://yapmap.vercel.app',
-        technologies: ['Next.js', 'Python', 'TypeScript', 'Tailwind CSS']
-    },
-    {
-        slug: 'portfolio',
-        title: 'Portfolio',
-        description: 'This website. Need I say more?',
-        github: 'https://github.com/tahayparker/portfolio',
-        link: 'https://tahayparker.vercel.app',
-        technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion']
-    }
-];
-
-const universityProjects: Project[] = [
-    {
-        slug: 'csci291',
-        title: 'Webots Simulation',
-        description: 'A Webots simulation of a robot that can navigate a maze to find the brightest spot in the maze',
-        github: 'https://github.com/Aymn-Mohd/CSCI291_Project_A24_GRP1',
-        technologies: ['C', 'Webots']
-    },
-    {
-        slug: 'ecte233',
-        title: 'Custom 4-bit ALU',
-        description: 'Desgining a custom 4-bit ALU using basic logic gates only',
-        technologies: ['MultiSim']
-    },
-    {
-        slug: 'engg100',
-        title: 'Projectile Simulator',
-        description: 'A projectile simulator with various parameters and real-time animation using MATLAB',
-        github: 'https://github.com/tahayparker/ProjectileSimulator',
-        technologies: ['MATLAB']
-    }
-];
+interface ProjectsResponse {
+    personal: Project[];
+    university: Project[];
+}
 
 const container = {
     hidden: { opacity: 0 },
@@ -97,16 +50,16 @@ const item = {
     }
 };
 
-const ProjectCard: React.FC<Project> = ({ slug, title, description, github, link, technologies }) => (
+const ProjectCard: React.FC<Project> = ({ slug, title, description, github_url, live_url, technologies }) => (
     <motion.div variants={item} className="border-2 border-foreground p-6 shadow-custom bg-background">
         <div className="flex justify-between items-start mb-4">
             <Link href={`/projects/${slug}`} className="hover:opacity-80 transition-opacity">
                 <h3 className="text-xl font-bold">{title}</h3>
             </Link>
             <div className="flex gap-3">
-                {github && (
+                {github_url && (
                     <a
-                        href={github}
+                        href={github_url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="opacity-80 hover:opacity-100 transition-opacity"
@@ -114,9 +67,9 @@ const ProjectCard: React.FC<Project> = ({ slug, title, description, github, link
                         <GitHub size={20} />
                     </a>
                 )}
-                {link && (
+                {live_url && (
                     <a
-                        href={link}
+                        href={live_url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="opacity-80 hover:opacity-100 transition-opacity"
@@ -126,7 +79,7 @@ const ProjectCard: React.FC<Project> = ({ slug, title, description, github, link
                 )}
             </div>
         </div>
-        <p className="text-[0.9375rem] opacity-80 mb-4">{description}</p>
+        <p className="text-[0.9375rem] opacity-80 mb-4 text-justify">{description}</p>
         <div className="flex flex-wrap gap-2">
             {technologies.map((tech) => (
                 <span
@@ -142,12 +95,78 @@ const ProjectCard: React.FC<Project> = ({ slug, title, description, github, link
 
 export default function Projects() {
     const [showContent, setShowContent] = useState(false);
+    const [projects, setProjects] = useState<ProjectsResponse>({ personal: [], university: [] });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const response = await fetch('/api/projects');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch projects');
+                }
+                const data: Project[] = await response.json();
+
+                // Separate projects by type
+                const personal = data.filter(p => p.project_type === 'personal');
+                const university = data.filter(p => p.project_type === 'university');
+
+                setProjects({ personal, university });
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+                console.error('Error fetching projects:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProjects();
+    }, []);
 
     const handleComplete = () => {
         setTimeout(() => {
             setShowContent(true);
         }, 200);
     };
+
+    if (loading) {
+        return (
+            <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
+                <Header />
+                <GoToTop />
+                <PageLoader
+                    command="ls -la projects/"
+                    responses={[
+                        "Scanning project directory...",
+                        "Compiling project list...",
+                        "Ready."
+                    ]}
+                    onComplete={handleComplete}
+                />
+            </main>
+        );
+    }
+
+    if (error) {
+        return (
+            <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
+                <Header />
+                <div className="max-w-7xl mx-auto px-4 pt-8">
+                    <div className="border-2 border-red-500 p-6 shadow-custom bg-background">
+                        <h1 className="text-2xl font-bold mb-4 text-red-500">Error Loading Projects</h1>
+                        <p className="text-red-400">{error}</p>
+                        <button
+                            onClick={() => window.location.reload()}
+                            className="mt-4 px-4 py-2 border border-foreground hover:bg-foreground hover:text-background transition-colors"
+                        >
+                            Retry
+                        </button>
+                    </div>
+                </div>
+            </main>
+        );
+    }
 
     return (
         <main className="min-h-screen bg-background text-foreground font-mono selection:bg-foreground selection:text-background mb-8">
@@ -165,7 +184,7 @@ export default function Projects() {
             />
 
             <motion.div
-                className="max-w-4xl mx-auto px-4 pt-8"
+                className="max-w-7xl mx-auto px-4 pt-8"
                 initial="hidden"
                 animate={showContent ? "show" : "hidden"}
                 variants={container}
@@ -181,21 +200,29 @@ export default function Projects() {
                 <motion.section variants={item} className="mb-12">
                     <h2 className="text-2xl font-bold mb-6">Personal Projects</h2>
                     <div className="space-y-6">
-                        {personalProjects.map((project) => (
-                            <ProjectCard key={project.slug} {...project} />
-                        ))}
+                        {projects.personal.length > 0 ? (
+                            projects.personal.map((project) => (
+                                <ProjectCard key={project.id} {...project} />
+                            ))
+                        ) : (
+                            <p className="text-foreground/60">No personal projects found.</p>
+                        )}
                     </div>
                 </motion.section>
 
                 <motion.section variants={item}>
                     <h2 className="text-2xl font-bold mb-6">University Projects</h2>
                     <div className="space-y-6">
-                        {universityProjects.map((project) => (
-                            <ProjectCard key={project.slug} {...project} />
-                        ))}
+                        {projects.university.length > 0 ? (
+                            projects.university.map((project) => (
+                                <ProjectCard key={project.id} {...project} />
+                            ))
+                        ) : (
+                            <p className="text-foreground/60">No university projects found.</p>
+                        )}
                     </div>
                 </motion.section>
             </motion.div>
         </main>
     );
-} 
+}
