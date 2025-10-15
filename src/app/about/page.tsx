@@ -81,7 +81,7 @@ export default function About() {
             try {
                 const response = await fetch('/api/gallery');
                 if (response.ok) {
-                    const data = await response.json();
+                    const data = await response.json() as GalleryImage[];
                     if (data.length > 0) {
                         setImages(data);
                     }
