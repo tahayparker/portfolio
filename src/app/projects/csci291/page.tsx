@@ -41,12 +41,12 @@ const relatedProjects: RelatedProject[] = [
     {
         slug: 'ecte233',
         title: 'Custom 4-bit ALU',
-        image: '/projects/ecte233.png'
+        image: '/images/ecte233.png'
     },
     {
         slug: 'engg100',
         title: 'Projectile Simulator',
-        image: '/projects/projsim.png'
+        image: '/images/projsim.png'
     }
 ];
 
@@ -63,19 +63,19 @@ const sections = [
 const images = [
     {
         type: 'image',
-        src: '/projects/csci291/mapping.png',
+        src: '/images/csci291-mapping.png',
         alt: 'Mapping',
         caption: 'Real-time mapping of the environment using sensor data'
     },
     {
         type: 'image',
-        src: '/projects/csci291/finding.png',
+        src: '/images/csci291-finding.png',
         alt: 'Finding the brightest spot',
         caption: 'Robot finding the brightest light source using GPS coordinates'
     },
     {
         type: 'image',
-        src: '/projects/csci291/bright.png',
+        src: '/images/csci291-bright.png',
         alt: 'Reaching the brightest spot',
         caption: 'Reaching the brightest spot and playing sound'
     },
@@ -186,7 +186,7 @@ export default function Csci291Project() {
                         <div className="space-y-8">
                             <motion.div variants={item} className="relative w-full [aspect-ratio:16/10] border-2 border-foreground shadow-custom">
                                 <Image
-                                    src="/projects/csci291.png"
+                                    src="/images/csci291.png"
                                     alt="CSCI291"
                                     fill
                                     className="object-cover"
@@ -210,11 +210,11 @@ export default function Csci291Project() {
                             <motion.div variants={item} className="space-y-4">
 
                                 <h2 id="objective" className="text-2xl font-bold mt-8">Objective</h2>
-                                <p className="text-[0.9375rem] opacity-80 mb-8">
+                                <p className="text-[0.9375rem] opacity-80 mb-8 text-justify">
                                 To develop a Webots robot application that autonomously navigates a maze to locate and stop at the brightest light source
                                 </p>
                                 <h2 id="overview" className="text-2xl font-bold">Overview</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                 The robot uses sensors for navigation, light detection, and GPS-based positioning to explore the maze dynamically. It implements a modular C-based control system to handle junction decisions, path tracking, and target acquisition efficiently
                                 </p>
 
@@ -229,13 +229,13 @@ export default function Csci291Project() {
                                 </ul>
 
                                 <h2 id="technical-details" className="text-2xl font-bold mt-8">Technical Details</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                 In order to ensure effective navigation through the maze, the robot&apos;s navigation system uses distance sensors to identify obstacles and junctions. Junction detection uses normalized sensor values to calculate path availability in three directions: forward, left, and right. This information is then used in a decision hierarchy to determine movement direction. The robot can effectively analyze paths or backtrack thanks to dynamic handling of junction analysis and path memory updates.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     Light source detection is achieved through light sensors, which continuously monitor ambient light intensity. The robot calculates average light levels and tracks the brightest spot by storing its GPS coordinates. Once the brightest light source is identified, the robot navigates directly to that location. The use of GPS for both position tracking and light source identification ensures accurate navigation and target acquisition.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     The robot&apos;s control logic is modular, with specific functions handling initialization, sensor reading, path memory updates, and decision-making at junctions. This modularity allows for efficient operation and easy debugging. The main function orchestrates all operations, from initialization to final cleanup. A Braitenberg-inspired algorithm dynamically adjusts motor speeds based on sensor inputs, enabling smooth and responsive navigation. The entire system’s design emphasizes adaptability, ensuring functionality across diverse maze layouts and lighting conditions.
                                 </p>
                             </motion.div>
@@ -327,8 +327,8 @@ export default function Csci291Project() {
                                     </a>
                                 </div>
                                 <div className="w-full h-[700px] border-2 border-foreground shadow-custom">
-                                    <iframe 
-                                        src="/projects/csci291/report.pdf#toolbar=0&view=FitH&page=2" 
+                                    <iframe
+                                        src="/projects/csci291/report.pdf#toolbar=0&view=FitH&page=2"
                                         className="w-full h-full"
                                         title="Robot Navigation Report"
                                     />
@@ -365,4 +365,4 @@ export default function Csci291Project() {
             </motion.div>
         </main>
     );
-} 
+}
