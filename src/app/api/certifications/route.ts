@@ -6,6 +6,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+export const runtime = 'edge';
+
 export async function GET() {
   try {
     // Fetch all certifications ordered by displayOrder (ascending)
