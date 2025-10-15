@@ -41,12 +41,12 @@ const relatedProjects: RelatedProject[] = [
     {
         slug: 'vacansee',
         title: 'vacan.see',
-        image: '/projects/vacansee.png'
+        image: '/images/vacansee.png'
     },
     {
         slug: 'findmyprof',
         title: 'FindMyProf',
-        image: '/projects/findmyprof.png'
+        image: '/images/findmyprof.png'
     }
 ];
 
@@ -138,7 +138,7 @@ export default function YapMapProject() {
                         <div className="space-y-8">
                             <motion.div variants={item} className="relative w-full [aspect-ratio:16/10] border-2 border-foreground shadow-custom">
                                 <Image
-                                    src="/projects/yapmap.png"
+                                    src="/images/yapmap.png"
                                     alt="YapMap"
                                     fill
                                     className="object-cover"
@@ -173,7 +173,7 @@ export default function YapMapProject() {
 
                             <motion.div variants={item} className="space-y-4">
                                 <h2 id="overview" className="text-2xl font-bold">Overview</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     YapMap is a web service that creating a word cloud visualization using a web-based interface. The project is bootstrapped with Next.js, which is a React framework for building server-side rendered and static web applications.
                                 </p>
 
@@ -185,10 +185,10 @@ export default function YapMapProject() {
                                 </ul>
 
                                 <h2 id="technical-details" className="text-2xl font-bold mt-8">Technical Details</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     The project utilizes Next.js for server-side rendering and static site generation. The application is built with TypeScript, ensuring type safety and improved developer experience. Tailwind CSS is used for styling, providing utility-first CSS classes for rapid development and customization.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     The backend is run by a Python script which is able to create wordclouds from a given text. The script is run on Render, which is triggered by an HTTP request from the frontend. The wordcloud is then returned to the frontend and displayed to the user.
                                 </p>
                             </motion.div>
@@ -238,4 +238,4 @@ export default function YapMapProject() {
             </motion.div>
         </main>
     );
-} 
+}
