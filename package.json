@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",
+    "@neondatabase/serverless": "^1.0.2",
+    "@prisma/adapter-neon": "^6.17.1",
     "@prisma/client": "^6.17.1",
     "@supabase/supabase-js": "^2.75.0",
     "autoprefixer": "^10.4.20",
