@@ -1,13 +1,11 @@
 /**
- * Prisma Client Configuration for Edge Runtime
+ * Prisma Client Configuration for Cloudflare Pages
  *
- * Uses Neon adapter for Cloudflare Pages Edge Runtime compatibility
- * Works with Supabase/Neon PostgreSQL database
+ * Standard Prisma setup for Supabase PostgreSQL
+ * Uses Cloudflare Pages Node.js compatibility mode
  */
 
 import { PrismaClient } from '@prisma/client';
-import { PrismaNeon } from '@prisma/adapter-neon';
-import { Pool } from '@neondatabase/serverless';
 
 // Declare global type for Prisma client caching
 declare global {
@@ -16,23 +14,10 @@ declare global {
 }
 
 /**
- * Creates and returns a Prisma client instance with Neon adapter for Edge Runtime
+ * Creates and returns a standard Prisma client instance
  */
 function createPrismaClient() {
-  // Use connection pooling for edge runtime
-  const connectionString = process.env.DATABASE_URL;
-
-  if (!connectionString) {
-    throw new Error('DATABASE_URL environment variable is not set');
-  }
-
-  const pool = new Pool({ connectionString });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const adapter = new PrismaNeon(pool as any); // Type assertion needed for Neon adapter compatibility
-
   return new PrismaClient({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    adapter: adapter as any,
     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   });
 }
