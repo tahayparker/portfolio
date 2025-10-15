@@ -2,8 +2,17 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true, // Disable Next.js image optimization for Cloudflare Pages
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
+
+  reactStrictMode: true,
+  output: "standalone",
 };
 
 export default nextConfig;
