@@ -41,12 +41,12 @@ const relatedProjects: RelatedProject[] = [
     {
         slug: 'csci291',
         title: 'Webots Simulation',
-        image: '/projects/csci291.png'
+        image: '/images/csci291.png'
     },
     {
         slug: 'engg100',
         title: 'Projectile Simulator',
-        image: '/projects/projsim.png'
+        image: '/images/projsim.png'
     }
 ];
 
@@ -139,7 +139,7 @@ export default function Ecte233Project() {
                         <div className="space-y-8">
                             <motion.div variants={item} className="relative w-full [aspect-ratio:16/10] border-2 border-foreground shadow-custom">
                                 <Image
-                                    src="/projects/ecte233.png"
+                                    src="/images/ecte233.png"
                                     alt="ECTE233"
                                     fill
                                     className="object-cover"
@@ -149,11 +149,11 @@ export default function Ecte233Project() {
                             <motion.div variants={item} className="space-y-4">
 
                                 <h2 id="objective" className="text-2xl font-bold mt-8">Objective</h2>
-                                <p className="text-[0.9375rem] opacity-80 mb-8">
+                                <p className="text-[0.9375rem] opacity-80 mb-8 text-justify">
                                     To design a custom-made 4-bit arithmetic logic unit (ALU) and test the design using a simulation such as Simulink or Multisim. All logic must be computed using basic gates (AND, OR, NOT, XOR, NAND, NOR and XNOR only). No advanced blocks available in a simulation environment may be used, except for the creation and analysis of inputs/outputs.
                                 </p>
                                 <h2 id="overview" className="text-2xl font-bold">Overview</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     The ALU has 10 inputs and 5 outputs. Two input bits are used to define the operation that will be applied (OP1:0). Two lots of four input bits are used to create nibbles A3:0 and B3:0. Four output bits are used to create the nibble S3:0, which is the main output of the operation. One output bit (Overflow) is used to indicate if an overflow has occurred during an operation.
                                 </p>
 
@@ -167,13 +167,13 @@ export default function Ecte233Project() {
                                 </ul>
 
                                 <h2 id="technical-details" className="text-2xl font-bold mt-8">Technical Details</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     Using basic digital logic principles, the 4-bit ALU is a small but powerful processing unit that can perform a variety of logical operations using two 4-bit inputs (A3:0 and B3:0) and two operation selection bits (OP1:0). The results are shown on a 4-bit output (S3:0), and an overflow detection bit (OF) is included for operations with potential overflow. This layout guarantees that the system can process binary computations with accuracy and dependability.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     SPDT switches are used in the ALU&apos;s input mechanism to avoid ambiguous states and to control operations and enter binary data. To ensure reliable binary state representation, each switch is connected to either ground or a voltage source. In addition to clearly distinguishing between logical high and low states, this tactile interface enables interactive manipulation of computing parameters by users. The ALU&apos;s versatility is demonstrated by the separate switches for operation control, which provide smooth transitions between different logical functions.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     The multiplexer (MUX) plays a crucial role in signal selection, utilizing a configuration of four AND gates, two NOT gates, and one OR gate. The MUX routes the appropriate signal to the output based on the operation selection bits, ensuring precise data processing. By complementing control signals using NOT gates and applying these alongside original inputs to AND gates, the circuit establishes a highly flexible logic network. The modular design not only enhances the ALU’s operational efficiency but also simplifies potential expansions, allowing additional operations to be integrated seamlessly.
                                 </p>
                             </motion.div>
@@ -199,8 +199,8 @@ export default function Ecte233Project() {
                                     </a>
                                 </div>
                                 <div className="w-full h-[700px] border-2 border-foreground shadow-custom">
-                                    <iframe 
-                                        src="/projects/ecte233/report.pdf#toolbar=0&view=FitH&page=2" 
+                                    <iframe
+                                        src="/projects/ecte233/report.pdf#toolbar=0&view=FitH&page=2"
                                         className="w-full h-full"
                                         title="ALU Report"
                                     />
@@ -237,4 +237,4 @@ export default function Ecte233Project() {
             </motion.div>
         </main>
     );
-} 
+}
