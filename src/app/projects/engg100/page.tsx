@@ -41,12 +41,12 @@ const relatedProjects: RelatedProject[] = [
     {
         slug: 'csci291',
         title: 'Webots Simulation',
-        image: '/projects/csci291.png'
+        image: '/images/csci291.png'
     },
     {
         slug: 'ecte233',
         title: 'Custom 4-bit ALU',
-        image: '/projects/ecte233.png'
+        image: '/images/ecte233.png'
     }
 ];
 
@@ -63,19 +63,19 @@ const sections = [
 const images = [
     {
         type: 'image',
-        src: '/projects/engg100/rtss.png',
+        src: '/images/engg100-rtss.png',
         alt: 'Simulation Tab',
         caption: 'The simulation tab of the app'
     },
     {
         type: 'image',
-        src: '/projects/engg100/graphs.png',
+        src: '/images/engg100-graphs.png',
         alt: 'Graphs',
         caption: 'Acceleration, velocity, and displacement graphs'
     },
     {
         type: 'image',
-        src: '/projects/engg100/history.png',
+        src: '/images/engg100-history.png',
         alt: 'History Tab',
         caption: 'History tab for saving and comparing simulation runs'
     },
@@ -179,7 +179,7 @@ export default function Engg100Project() {
                         <div className="space-y-8">
                             <motion.div variants={item} className="relative w-full [aspect-ratio:15/10] border-2 border-foreground shadow-custom">
                                 <Image
-                                    src="/projects/projsim.png"
+                                    src="/images/projsim.png"
                                     alt="ENGG100"
                                     fill
                                     className="object-cover"
@@ -203,11 +203,11 @@ export default function Engg100Project() {
                             <motion.div variants={item} className="space-y-4">
 
                                 <h2 id="objective" className="text-2xl font-bold mt-8">Objective</h2>
-                                <p className="text-[0.9375rem] opacity-80 mb-8">
+                                <p className="text-[0.9375rem] opacity-80 mb-8 text-justify">
                                     To analyze and simulate the dynamics of a projectile motion scenario using MATLAB. The simulation includes determining the required initial velocity and launch angle for an object to successfully reach a basketball ring located behind a building, based on user-defined input parameters.
                                 </p>
                                 <h2 id="overview" className="text-2xl font-bold">Overview</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     This project investigates projectile motion dynamics by modeling and solving equations using MATLAB. The problem involves launching an object from the origin with specific velocity and angle to land in a basketball ring positioned at a certain height and distance from the building. The work includes a MATLAB application that dynamically calculates and visualizes projectile paths, maximum heights, and required conditions for successful landing.
                                 </p>
 
@@ -221,13 +221,13 @@ export default function Engg100Project() {
                                 </ul>
 
                                 <h2 id="technical-details" className="text-2xl font-bold mt-8">Technical Details</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     The technological implementation comprises of several main components that work together to build a complete projectile simulation system. The basic functionality is based on a strong mathematical model that includes classical mechanics equations for projectile motion. These fundamental physics principles are used using MATLAB&apos;s optimization toolbox, notably the fsolve function, to discover optimal launch parameters. The system handles the nonlinear equations using advanced algorithms such as trust-region-dogleg and Levenberg-Marquardt approaches, with maximum function evaluations and iterations set to 1050 to assure solution convergence.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     The application&apos;s layout is divided into three primary modules: Simulation, which provides basic functionality and real-time display, Graphs, which represents analytical data, and History, which allows for data durability and comparison. The Simulation Tab contains three panels: an input panel for distance, height, and gravity values, an output panel for derived metrics, and a Real Time Simulator System (RTSS) for dynamic trajectory visualization. This modular design enables users to seamlessly move between different features of the simulation while ensuring data consistency across all components.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     To get realistic and physically meaningful outputs, the system operates under well established restrictions. These include a minimum distance threshold of 0.01 meters to prevent unrealistic launch circumstances, as well as angle constraints to maintain the projectile&apos;s trajectory within a reasonable range. The Graphs Tab creates detailed visualizations of displacement, velocity, and acceleration over time, whilst the History Tab allows users to save, compare, and evaluate many simulation runs. The combination of rigorous physical constraints and versatile user interface features results in a stable and user-friendly simulation environment.
                                 </p>
                             </motion.div>
@@ -354,4 +354,4 @@ export default function Engg100Project() {
             </motion.div>
         </main>
     );
-} 
+}
