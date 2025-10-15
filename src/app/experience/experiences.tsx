@@ -26,8 +26,8 @@ export const experience: Experience[] = [
         "technologies": ["Project Management", "Leadership", "Technical Event Planning"],
         "link": "https://uowdtechclub.com",
         "logo": {
-            "light": "/logos/uowdtechclub.png",
-            "dark": "/logos/uowdtechclub.png"
+            "light": "/images/logos/uowdtechclub.png",
+            "dark": "/images/logos/uowdtechclub.png"
         }
     },
     {
@@ -43,8 +43,8 @@ export const experience: Experience[] = [
         "technologies": ["Teaching", "Communication"],
         "link": "https://uowdubai.ac.ae",
         "logo": {
-            "light": "/logos/uowdl.png",
-            "dark": "/logos/uowdd.png"
+            "light": "/images/logos/uowdl.png",
+            "dark": "/images/logos/uowdd.png"
         }
     },
     {
@@ -60,8 +60,8 @@ export const experience: Experience[] = [
         "technologies": ["Event Planning", "Team Management", "Project Coordination"],
         "link": "https://uowdtechclub.com",
         "logo": {
-            "light": "/logos/uowdtechclub.png",
-            "dark": "/logos/uowdtechclub.png"
+            "light": "/images/logos/uowdtechclub.png",
+            "dark": "/images/logos/uowdtechclub.png"
         }
     },
     {
@@ -77,8 +77,8 @@ export const experience: Experience[] = [
         "technologies": ["Leadership", "Organizational Management", "Strategic Planning"],
         "link": "https://www.linkedin.com/company/uowd-sustainability-society/",
         "logo": {
-            "light": "/logos/uowdsustainability.png",
-            "dark": "/logos/uowdsustainability.png"
+            "light": "/images/logos/uowdsustainability.png",
+            "dark": "/images/logos/uowdsustainability.png"
         }
     },
     {
@@ -94,8 +94,8 @@ export const experience: Experience[] = [
         "technologies": ["Event Management", "Photography", "Member Relations"],
         "link": "https://www.linkedin.com/company/the-creators-club-uowd/",
         "logo": {
-            "light": "/logos/uowdcapturel.png",
-            "dark": "/logos/uowdcaptured.png"
+            "light": "/images/logos/uowdcapturel.png",
+            "dark": "/images/logos/uowdcaptured.PNG"
         }
     },
     {
@@ -111,8 +111,8 @@ export const experience: Experience[] = [
         "technologies": ["Event Planning", "Data Analysis", "Project Management"],
         "link": "https://www.linkedin.com/company/the-creators-club-uowd/",
         "logo": {
-            "light": "/logos/tccl.png",
-            "dark": "/logos/tccd.png"
+            "light": "/images/logos/tccl.png",
+            "dark": "/images/logos/tccd.png"
         }
     },
     {
@@ -128,8 +128,8 @@ export const experience: Experience[] = [
         "technologies": ["Operations Management", "Event Planning", "Resource Coordination"],
         "link": "https://uowdtechclub.com",
         "logo": {
-            "light": "/logos/uowdtechclub.png",
-            "dark": "/logos/uowdtechclub.png"
+            "light": "/images/logos/uowdtechclub.png",
+            "dark": "/images/logos/uowdtechclub.png"
         }
     },
     {
@@ -145,8 +145,8 @@ export const experience: Experience[] = [
         "technologies": ["Social Media Management", "Content Creation", "Digital Marketing"],
         "link": "https://www.linkedin.com/company/uowd-sustainability-society/",
         "logo": {
-            "light": "/logos/uowdsustainability.png",
-            "dark": "/logos/uowdsustainability.png"
+            "light": "/images/logos/uowdsustainability.png",
+            "dark": "/images/logos/uowdsustainability.png"
         }
     },
     {
@@ -162,8 +162,8 @@ export const experience: Experience[] = [
         "technologies": ["Team Leadership", "Analytics", "Media Strategy"],
         "link": "https://www.linkedin.com/company/uowd-sustainability-society/",
         "logo": {
-            "light": "/logos/uowdsustainability.png",
-            "dark": "/logos/uowdsustainability.png"
+            "light": "/images/logos/uowdsustainability.png",
+            "dark": "/images/logos/uowdsustainability.png"
         }
     }
 ];
