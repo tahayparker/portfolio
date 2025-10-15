@@ -51,7 +51,7 @@ export default function Home() {
                 <motion.div variants={item}>
                     <Header />
                 </motion.div>
-                <div className="max-w-4xl mx-auto px-4 pt-8">
+                <div className="max-w-7xl mx-auto px-4 pt-8">
                     <motion.div
                         ref={containerRef}
                         className="border-2 border-foreground p-8 shadow-custom"
@@ -62,24 +62,24 @@ export default function Home() {
                                 # sudo init portfolio
                             </h1>
                         </motion.div>
-                        <motion.p className="text-sm opacity-80 mb-8" variants={item}>
+                        <motion.p className="text-sm opacity-80 mb-8 text-justify" variants={item}>
                             Welcome to my portfolio. I&apos;m a computer engineer who turns caffeine into code.
                         </motion.p>
 
                         <motion.div variants={item} className="space-y-4">
                             <Link href="/projects" className="block border-2 border-foreground p-4 hover:bg-foreground hover:text-background transition-colors">
                                 <h2 className="text-lg font-bold mb-2">Projects</h2>
-                                <p className="text-sm opacity-80">Check out what I&apos;ve been building. From web apps to electrical circuits.</p>
+                                <p className="text-sm opacity-80 text-justify">Check out what I&apos;ve been building. From web apps to electrical circuits.</p>
                             </Link>
 
                             <Link href="/experience" className="block border-2 border-foreground p-4 hover:bg-foreground hover:text-background transition-colors">
                                 <h2 className="text-lg font-bold mb-2">Experience</h2>
-                                <p className="text-sm opacity-80">My journey so far. Leadership roles, technical positions, and volunteer work.</p>
+                                <p className="text-sm opacity-80 text-justify">My journey so far. Leadership roles, technical positions, and volunteer work.</p>
                             </Link>
 
                             <Link href="/contact" className="block border-2 border-foreground p-4 hover:bg-foreground hover:text-background transition-colors">
                                 <h2 className="text-lg font-bold mb-2">Contact</h2>
-                                <p className="text-sm opacity-80">Let&apos;s connect! Find me on GitHub, LinkedIn, or send me an email.</p>
+                                <p className="text-sm opacity-80 text-justify">Let&apos;s connect! Find me on GitHub, LinkedIn, or send me an email.</p>
                             </Link>
                         </motion.div>
                     </motion.div>
