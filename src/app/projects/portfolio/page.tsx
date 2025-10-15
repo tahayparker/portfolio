@@ -41,12 +41,12 @@ const relatedProjects: RelatedProject[] = [
     {
         slug: 'vacansee',
         title: 'vacan.see',
-        image: '/projects/vacansee.png'
+        image: '/images/vacansee.png'
     },
     {
         slug: 'csci291',
         title: 'Webots Simulation',
-        image: '/projects/csci291.png'
+        image: '/images/csci291.png'
     }
 ];
 
@@ -137,7 +137,7 @@ export default function VacanseeProject() {
                         <div className="space-y-8">
                             <motion.div variants={item} className="relative w-full [aspect-ratio:16/10] border-2 border-foreground shadow-custom">
                                 <Image
-                                    src="/projects/portfolio.png"
+                                    src="/images/portfolio.png"
                                     alt="Portfolio"
                                     fill
                                     className="object-cover"
@@ -173,7 +173,7 @@ export default function VacanseeProject() {
                             <motion.div variants={item} className="space-y-4">
 
                                 <h2 id="overview" className="text-2xl font-bold">Overview</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     A personal portfolio website built with Next.js and Tailwind CSS. Features a custom theme switcher, smooth animations, and responsive design.
                                 </p>
 
@@ -187,10 +187,10 @@ export default function VacanseeProject() {
                                 </ul>
 
                                 <h2 id="technical-details" className="text-2xl font-bold mt-8">Technical Details</h2>
-                                <p className="text-[0.9375rem] opacity-80">
+                                <p className="text-[0.9375rem] opacity-80 text-justify">
                                     The portfolio is built using Next.js with the new App Router, leveraging React Server Components for optimal performance. The styling is handled through Tailwind CSS, providing a utility-first approach to styling while maintaining a consistent design system.
                                 </p>
-                                <p className="text-[0.9375rem] opacity-80 mt-4">
+                                <p className="text-[0.9375rem] opacity-80 mt-4 text-justify">
                                     Framer Motion is used extensively throughout the site to create smooth, engaging animations that enhance the user experience without being distracting. The theme switcher is implemented using CSS variables and React context for seamless transitions between light and dark modes.
                                 </p>
                             </motion.div>
@@ -240,4 +240,4 @@ export default function VacanseeProject() {
             </motion.div>
         </main>
     );
-} 
+}
