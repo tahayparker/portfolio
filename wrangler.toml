@@ -1,20 +1,30 @@
 name = "portfolio"
+main = ".open-next/worker.js"
 compatibility_date = "2025-10-16"
 compatibility_flags = ["nodejs_compat"]
 
-# This is the entrypoint that Cloudflare Workers will execute
-main = ".vercel/output/functions/[[path]].func/index.mjs"
-
-# Optional: enable minification, etc.
-workers_dev = true
+# This is the correct way to bind static assets for OpenNext.
+# It creates the "ASSETS" binding that the worker script needs.
+# Do NOT create a KV namespace for this.
+[assets]
+binding = "ASSETS"
+directory = ".open-next/assets"
 
 [[r2_buckets]]
 binding = "PORTFOLIO_IMAGES"
 bucket_name = "tahayparker-portfolio"
 
+[[r2_buckets]]
+binding = "NEXT_INC_CACHE_R2_BUCKET"
+bucket_name = "cache"
+
+[observability]
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+invocation_logs = true
+
 [vars]
-# Add any environment variables here if needed
-DATABASE_URL="postgresql://postgres.edbzuegbjcunniihpocg:qm5razjJMEfdoNNB@aws-1-ap-southeast-2.pooler.supabase.com:6543/postgres?pgbouncer=true"
-DIRECT_URL="postgresql://postgres.edbzuegbjcunniihpocg:qm5razjJMEfdoNNB@aws-1-ap-southeast-2.pooler.supabase.com:5432/postgres"
+# Public variables only. Your DATABASE_URL should be a secret.
 NEXT_PUBLIC_SUPABASE_URL="https://edbzuegbjcunniihpocg.supabase.co"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVkYnp1ZWdiamN1bm5paWhwb2NnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0ODg5MDQsImV4cCI6MjA3NjA2NDkwNH0.Mr__4D3wV5LL92YK5hozmT5EkOSK8P7H4YAiHYP8AdU"
