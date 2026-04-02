@@ -1,9 +1,8 @@
-// Prisma Schema for Portfolio Database
-// Compatible with Supabase PostgreSQL and Cloudflare Pages Edge Runtime
+// Prisma Schema for Portfolio with Supabase PostgreSQL
+// This schema defines all your database models
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x", "windows"]
 }
 
 datasource db {
@@ -12,126 +11,98 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// Experience Model - Professional work experience
-model Experience {
-  id           String   @id @default(uuid())
-  company      String
-  position     String
-  duration     String
-  location     String
-  description  String[] // Array of description points
-  technologies String[] // Array of technologies used
-  link         String?  // Optional company/project link
-  logoLight    String?  // Path to light mode logo
-  logoDark     String?  // Path to dark mode logo
-  displayOrder Int      @default(0) // For ordering experiences
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@index([displayOrder])
-  @@map("experiences")
-}
-
-// Volunteering Model - Volunteer work experience
+// Volunteering Model
 model Volunteering {
-  id           String   @id @default(uuid())
+  id           String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   company      String
   position     String
   duration     String
   location     String
-  description  String[] // Array of description points
-  technologies String[] // Array of skills/technologies
-  link         String?  // Optional organization link
-  logoLight    String?  // Path to light mode logo
-  logoDark     String?  // Path to dark mode logo
-  displayOrder Int      @default(0) // For ordering volunteering entries
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  description  String[]
+  technologies String[]
+  link         String?
+  logoLight    String?  @map("logo_light")
+  logoDark     String?  @map("logo_dark")
+  order        Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
-  @@index([displayOrder])
   @@map("volunteering")
 }
 
-// Education Model - Educational background
-model Education {
-  id           String   @id @default(uuid())
-  school       String
-  degree       String
-  field        String
+// Experience Model
+model Experience {
+  id           String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  company      String
+  position     String
   duration     String
   location     String
-  description  String[] // Array of highlights/achievements
-  displayOrder Int      @default(0) // For ordering education entries
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  description  String[]
+  technologies String[]
+  link         String?
+  logoLight    String?  @map("logo_light")
+  logoDark     String?  @map("logo_dark")
+  startDate    DateTime @map("start_date") @db.Date
+  endDate      DateTime? @map("end_date") @db.Date
+  current      Boolean  @default(false)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
-  @@index([displayOrder])
-  @@map("education")
+  @@map("experiences")
 }
 
-// Certification Model - Professional certifications
-model Certification {
-  id              String   @id @default(uuid())
-  name            String
-  issuer          String
-  date            String // Stored as string to match current format (e.g., "Dec 2024")
-  credentialUrl   String
-  credentialUrl2  String? // Optional second credential URL
-  description     String
-  displayOrder    Int      @default(0) // For ordering certifications
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@index([displayOrder])
-  @@map("certifications")
-}
-
-// Project Model - Personal and university projects
+// Project Model
 model Project {
-  id                String          @id @default(uuid())
-  title             String
-  slug              String          @unique // URL-friendly identifier
-  description       String // Short description for cards
-  githubUrl         String?         @map("github_url")
-  liveUrl           String?         @map("live_url")
-  projectType       ProjectType     @map("project_type") // personal or university
-  technologies      String[] // Array of technologies used
-  featured          Boolean         @default(false) // For highlighting featured projects
-  displayOrder      Int             @default(0) // For ordering projects
-  // Detailed page content
-  backgroundContent String?         @map("background_content") // Long-form background text
-  overviewContent   String?         @map("overview_content") // Detailed overview
-  keyFeatures       String[]        @default([]) @map("key_features") // Array of key features
-  technicalDetails  String?         @map("technical_details") // Technical implementation details
-  imageUrl          String?         @map("image_url") // Main project image
-  relatedProjects   String[]        @default([]) @map("related_projects") // Array of related project slugs
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  id           String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  slug         String   @unique
+  title        String
+  description  String
+  thumbnail    String?
+  technologies String[]
+  github       String?
+  live         String?
+  date         DateTime @db.Date
+  body         String?
+  category     String   // 'personal' or 'university'
+  order        Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
-  @@index([projectType])
-  @@index([slug])
-  @@index([displayOrder])
   @@map("projects")
 }
 
-// Gallery Model - Gallery images metadata
-model Gallery {
-  id           String   @id @default(uuid())
-  imagePath    String   @map("image_path") // Path to image in public folder
-  caption      String
-  altText      String   @map("alt_text")
-  displayOrder Int      @default(0) // For ordering gallery images
-  isVisible    Boolean  @default(true) @map("is_visible") // Toggle visibility
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+// Education Model
+model Education {
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  institution String
+  degree      String
+  field       String
+  duration    String
+  location    String
+  description String[]
+  logoLight   String?  @map("logo_light")
+  logoDark    String?  @map("logo_dark")
+  gpa         String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
-  @@index([displayOrder])
-  @@index([isVisible])
-  @@map("gallery")
+  @@map("education")
 }
 
-// Enum for project types
-enum ProjectType {
-  personal
-  university
+// Certificate Model
+model Certificate {
+  id            String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name          String
+  issuer        String
+  date          DateTime @db.Date
+  credentialId  String?  @map("credential_id")
+  credentialUrl String?  @map("credential_url")
+  logo          String?
+  order         Int      @default(0)
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("certificates")
 }
